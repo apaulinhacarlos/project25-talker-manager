@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const readFileMiddleware = async (req, res, next) => {
+const getAllTalkers = async (req, res, next) => {
   try {
     const file = await JSON.parse(fs.readFileSync('./talker.json', 'utf-8'));
     res.status(200).json(file);
@@ -9,4 +9,4 @@ const readFileMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = readFileMiddleware;
+module.exports = getAllTalkers;

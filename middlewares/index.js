@@ -1,5 +1,7 @@
-const readFileMiddleware = require('./readFileMiddleware');
+const getAllTalkers = require('./getAllTalkers');
+const getTalkerById = require('./getTalkerById');
 
 module.exports = { 
-  readFileMiddleware,
+  getAllTalkers,
+  getTalkerById,
 };
