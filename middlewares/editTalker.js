@@ -2,11 +2,10 @@ const fs = require('fs');
 const { validateName, validateAge, validateTalk } = require('../services/validateTalker');
 
 const getDataTalker = async (req, res) => {
-  const readFile = await JSON.parse(fs.readFileSync('./talker.json', 'utf-8'));
-  const newId = readFile.length + 1;
-
+  const { id } = req.params;
+  
   const data = {
-    id: newId,
+    id: Number(id),
     name: validateName(req, res),
     age: validateAge(req, res),
     talk: validateTalk(req, res),
@@ -15,15 +14,20 @@ const getDataTalker = async (req, res) => {
   return data;
 };
 
-const createTalker = async (req, res, next) => {
+const editTalker = async (req, res, next) => {
   try {
+    const { id } = req.params;
     const readFile = await JSON.parse(fs.readFileSync('./talker.json', 'utf-8'));
     const dataTalker = await getDataTalker(req, res);
-    await fs.writeFileSync('./talker.json', JSON.stringify([...readFile, dataTalker]));
-    res.status(201).json(dataTalker);
+    const newTalker = readFile.map((item) => {
+      if (item.id !== Number(id)) return item;
+      return dataTalker;
+    });
+    await fs.writeFileSync('./talker.json', JSON.stringify(newTalker));
+    res.status(200).json(dataTalker);
   } catch (err) {
     next(err);
   }
 };
 
-module.exports = createTalker;
+module.exports = editTalker;
