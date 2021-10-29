@@ -1,8 +1,8 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 const { validateName, validateAge, validateTalk } = require('../services/validateTalker');
 
 const getDataTalker = async (req, res) => {
-  const readFile = await JSON.parse(fs.readFileSync('./talker.json', 'utf-8'));
+  const readFile = JSON.parse(await fs.readFile('./talker.json', 'utf-8'));
   const newId = readFile.length + 1;
 
   const data = {
@@ -17,9 +17,9 @@ const getDataTalker = async (req, res) => {
 
 const createTalker = async (req, res, next) => {
   try {
-    const readFile = await JSON.parse(fs.readFileSync('./talker.json', 'utf-8'));
+    const readFile = JSON.parse(await fs.readFile('./talker.json', 'utf-8'));
     const dataTalker = await getDataTalker(req, res);
-    await fs.writeFileSync('./talker.json', JSON.stringify([...readFile, dataTalker]));
+    await fs.writeFile('./talker.json', JSON.stringify([...readFile, dataTalker]));
     res.status(201).json(dataTalker);
   } catch (err) {
     next(err);
