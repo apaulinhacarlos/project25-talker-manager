@@ -6,7 +6,9 @@ Projeto desenvolvido por mim durante o curso de Desenvolvimento Web na <a href="
 
 ## Desenvolvimento
 
-Neste projeto, eu fui capaz de:
+Neste projeto eu desenvolvi uma API de um CRUD (**C**reate, **R**ead, **U**pdate e **D**elete) de palestrantes. Eu desenvolvi alguns endpoints que podem ler e escrever em um arquivo, isso utilizando o módulo `fs`.
+
+Eu fui capaz de:
 
 - Realizar operações assíncronas utilizando callbacks;
 - Realizar operações assíncronas utilizando Promises;
